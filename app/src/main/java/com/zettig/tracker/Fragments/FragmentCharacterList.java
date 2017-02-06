@@ -21,8 +21,10 @@ import com.zettig.tracker.Adapter.AdapterTracker;
 import com.zettig.tracker.CallbackActivity;
 import com.zettig.tracker.Model.Character;
 import com.zettig.tracker.R;
+import com.zettig.tracker.Utils.CharacterComporator;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -64,6 +66,7 @@ public class FragmentCharacterList extends Fragment implements AdapterView.OnIte
     public void onResume() {
         super.onResume();
         list = Character.getAll();
+        Collections.sort(list, new CharacterComporator());
         adapter.setList(list);
     }
 

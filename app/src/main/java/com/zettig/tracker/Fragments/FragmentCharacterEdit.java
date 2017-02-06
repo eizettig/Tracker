@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.zettig.tracker.Model.Character;
 import com.zettig.tracker.R;
+import com.zettig.tracker.Utils.ApplicationManager;
 
 /**
  * Created by Altair on 06.02.2017.
@@ -84,9 +85,7 @@ public class FragmentCharacterEdit extends Fragment {
     }
 
     private void makeToast(int message){
-        Toast toast = Toast.makeText(getActivity(),message,Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
+        ApplicationManager.getInstance().showToast(message);
     }
 
 }
