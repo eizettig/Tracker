@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Tracker</string>
+    <string name="name">Имя игрока</string>
+    <string name="initiative">Инициатива</string>
+    <string name="add">Добавить</string>
+    <string name="done">Готово</string>
 </resources>

@@ -25,7 +25,7 @@ public class AdapterTracker extends RecyclerView.Adapter<AdapterTracker.ViewHold
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.character_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.character_list_item,parent,false);
         return new ViewHolder(view);
     }
 

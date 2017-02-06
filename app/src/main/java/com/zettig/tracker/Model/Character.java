@@ -4,9 +4,11 @@ package com.zettig.tracker.Model;
  * Created by Altair on 06.02.2017.
  */
 
-public class Character {
+public class Character{
     private String name;
     private int initiative;
+
+
 
     public String getName() {
         return name;
