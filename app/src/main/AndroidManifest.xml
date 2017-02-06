@@ -18,7 +18,7 @@
 
         <meta-data android:name="AA_DB_NAME" android:value="Tracker.db"/>
         <meta-data android:name="AA_DB_VERSION" android:value="1"/>
-        <meta-data android:name="AA_MODELS" android:value="com.zettig.Model.Character"/>
+        <meta-data android:name="AA_MODELS" android:value="com.zettig.tracker.Model.Character"/>
     </application>
 
 </manifest>

@@ -8,4 +8,5 @@ import android.support.v4.app.Fragment;
 
 public interface CallbackActivity {
     void replaceFragment(Fragment fragment,boolean addToBackStack);
+    void onBackHomePressed();
 }

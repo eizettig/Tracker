@@ -4,4 +4,7 @@
     <string name="initiative">Инициатива</string>
     <string name="add">Добавить</string>
     <string name="done">Готово</string>
+    <string name="error_no_name">Введите имя</string>
+    <string name="error_no_initiative">Введите инициативу</string>
+    <string name="error_insert_character">Ошибка добавления игрока</string>
 </resources>

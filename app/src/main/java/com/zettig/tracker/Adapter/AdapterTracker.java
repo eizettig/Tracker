@@ -4,11 +4,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.activeandroid.util.Log;
 import com.zettig.tracker.Model.Character;
 import com.zettig.tracker.R;
+import com.zettig.tracker.Utils.CharacterComporator;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -17,10 +22,13 @@ import java.util.List;
 
 public class AdapterTracker extends RecyclerView.Adapter<AdapterTracker.ViewHolder> {
 
-    List<Character> list;
+    private List<Character> list;
+    private AdapterView.OnItemClickListener onItemClickListener;
+    private AdapterView.OnItemLongClickListener onItemLongClickListener;
 
-    public AdapterTracker(List<Character> list) {
-        this.list = list;
+    public AdapterTracker(AdapterView.OnItemClickListener onItemClickListener, AdapterView.OnItemLongClickListener onItemLongClickListener) {
+        this.onItemClickListener = onItemClickListener;
+        this.onItemLongClickListener = onItemLongClickListener;
     }
 
     @Override
@@ -40,13 +48,39 @@ public class AdapterTracker extends RecyclerView.Adapter<AdapterTracker.ViewHold
         return list.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public void setList(List<Character> list){
+        this.list = list;
+        notifyDataSetChanged();
+    }
+
+    private void updateData(){
+        Collections.sort(list,new CharacterComporator());
+        notifyDataSetChanged();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         TextView name;
         TextView initiative;
+        RelativeLayout container;
         public ViewHolder(View itemView) {
             super(itemView);
             name = (TextView)itemView.findViewById(R.id.character_name);
             initiative = (TextView)itemView.findViewById(R.id.character_initiative);
+            container = (RelativeLayout) itemView.findViewById(R.id.character_container);
+            container.setOnClickListener(this);
+            container.setOnLongClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            onItemClickListener.onItemClick(null,v,getAdapterPosition(),v.getId());
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            onItemLongClickListener.onItemLongClick(null,v,getAdapterPosition(),v.getId());
+            Log.d("TAG","long click to: " + getAdapterPosition());
+            return true;
         }
     }
 }

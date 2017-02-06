@@ -12,7 +12,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.AdapterView;
 
+import com.activeandroid.util.Log;
 import com.zettig.tracker.ActivityMain;
 import com.zettig.tracker.Adapter.AdapterTracker;
 import com.zettig.tracker.CallbackActivity;
@@ -26,7 +29,7 @@ import java.util.List;
  * Created by Altair on 06.02.2017.
  */
 
-public class FragmentCharacterList extends Fragment {
+public class FragmentCharacterList extends Fragment implements AdapterView.OnItemClickListener,AdapterView.OnItemLongClickListener {
 
     CallbackActivity callback;
     RecyclerView recyclerView;
@@ -52,16 +55,21 @@ public class FragmentCharacterList extends Fragment {
 
         recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new AdapterTracker(list);
-        recyclerView.setAdapter(adapter);
-
+        adapter = new AdapterTracker(this,this);
+        recyclerView.setAdapter(adapter );
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        list = Character.getAll();
+        adapter.setList(list);
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        menu.clear();
         inflater.inflate(R.menu.character_list_menu,menu);
     }
 
@@ -89,5 +97,16 @@ public class FragmentCharacterList extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        callback.replaceFragment(new FragmentCharacterEdit(),true);
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.d("TAG","long click to: " + position);
+        return true;
     }
 }

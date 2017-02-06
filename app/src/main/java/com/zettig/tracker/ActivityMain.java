@@ -5,7 +5,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 
+import com.activeandroid.ActiveAndroid;
 import com.zettig.tracker.Fragments.FragmentCharacterList;
 
 
@@ -17,8 +19,11 @@ public class ActivityMain extends AppCompatActivity implements CallbackActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActiveAndroid.initialize(this);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         fragmentManager = getSupportFragmentManager();
+        fragmentManager.addOnBackStackChangedListener(onBackStackCanget);
 
         replaceFragment(new FragmentCharacterList(),false);
     }
@@ -27,8 +32,28 @@ public class ActivityMain extends AppCompatActivity implements CallbackActivity{
     public void replaceFragment(Fragment fragment,boolean addToBackStack){
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.container,fragment);
-        if (addToBackStack) transaction.addToBackStack(null);
+        if (addToBackStack) transaction.addToBackStack("backstack");
         transaction.commit();
     }
 
+    private FragmentManager.OnBackStackChangedListener onBackStackCanget = new FragmentManager.OnBackStackChangedListener() {
+        @Override
+        public void onBackStackChanged() {
+            if (fragmentManager.getBackStackEntryCount()>0){
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            } else {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            }
+        }
+    };
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackHomePressed() {
+        super.onBackPressed();
+    }
 }
