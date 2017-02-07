@@ -3,6 +3,7 @@ package com.zettig.tracker.Fragments;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -26,6 +27,7 @@ public class FragmentCharacterEdit extends Fragment {
 
     TextInputEditText name;
     TextInputEditText initiative;
+    FloatingActionButton fab;
     Character character = null;
 
     @Override
@@ -41,6 +43,8 @@ public class FragmentCharacterEdit extends Fragment {
         View view = inflater.inflate(R.layout.fragment_character_edit,container,false);
         name = (TextInputEditText) view.findViewById(R.id.edit_name);
         initiative = (TextInputEditText) view.findViewById(R.id.edit_initiative);
+        fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(onDoneClick);
 
         if (getArguments() != null){
             long id = getArguments().getLong("id");
@@ -70,13 +74,7 @@ public class FragmentCharacterEdit extends Fragment {
             case R.id.delete:
                 ManagerAlertDialog.showDialog(getActivity(),R.string.question_delete_character,R.string.yes,R.string.no,onDelete,onDismisDelete);
                 break;
-            case R.id.done:
-                if (character == null) {
-                    addNewCharacter();
-                } else {
-                    editCharacter();
-                }
-                break;
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -133,6 +131,17 @@ public class FragmentCharacterEdit extends Fragment {
         @Override
         public void onClick(DialogInterface dialog, int which) {
 
+        }
+    };
+
+    private View.OnClickListener onDoneClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if (character == null) {
+                addNewCharacter();
+            } else {
+                editCharacter();
+            }
         }
     };
 

@@ -33,7 +33,7 @@ public class ActivityMain extends AppCompatActivity implements CallbackActivity{
     public void replaceFragment(Fragment fragment,boolean addToBackStack){
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 //         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        transaction.setCustomAnimations(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
+        transaction.setCustomAnimations(android.R.anim.slide_out_right,android.R.anim.slide_in_left);
         transaction.replace(R.id.container,fragment);
         if (addToBackStack) transaction.addToBackStack("backstack");
         transaction.commit();

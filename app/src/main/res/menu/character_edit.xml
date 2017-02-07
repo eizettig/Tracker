@@ -5,8 +5,4 @@
         android:title="@string/delete"
         android:icon="@drawable/ic_action_delete"
         app:showAsAction="collapseActionView|ifRoom" />
-    <item android:id="@+id/done"
-        android:title="@string/done"
-        android:icon="@drawable/ic_action_done"
-        app:showAsAction="collapseActionView|ifRoom"/>
 </menu>

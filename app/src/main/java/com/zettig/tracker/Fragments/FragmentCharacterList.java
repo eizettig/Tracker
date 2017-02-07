@@ -35,6 +35,7 @@ import java.util.List;
 
 public class FragmentCharacterList extends Fragment implements AdapterView.OnItemClickListener,AdapterView.OnItemLongClickListener {
 
+    private static final String TAG = "TAG";
     private static final String TURN = "TURN";
     CallbackActivity callback;
     RecyclerView recyclerView;
@@ -121,10 +122,11 @@ public class FragmentCharacterList extends Fragment implements AdapterView.OnIte
             if (list.size()<2){
                 ApplicationManager.getInstance().showToast(R.string.error_few_character);
             } else {
+                android.util.Log.d(TAG, "onClick: " + turn);
                 if (turn == -1){
                     turnFirst();
                 } else {
-                    turnNext(turn);
+                    turnNext();
                 }
             }
         }
@@ -154,14 +156,14 @@ public class FragmentCharacterList extends Fragment implements AdapterView.OnIte
     private void turnFirst(){
         round++;
         callback.setTitle("Раунд: " + round);
-        turn = 1;
+        turn = 0;
         setTurned(turn);
     }
 
-    private void turnNext(int current){
-        if (current != recyclerView.getChildCount()) {
+    private void turnNext(){
+        if (turn != recyclerView.getChildCount()-1) {
             turn++;
-            setTurned(current);
+            setTurned(turn);
         } else {
             turnFirst();
         }
