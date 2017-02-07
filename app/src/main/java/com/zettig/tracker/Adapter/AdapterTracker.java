@@ -1,5 +1,6 @@
 package com.zettig.tracker.Adapter;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,12 +62,12 @@ public class AdapterTracker extends RecyclerView.Adapter<AdapterTracker.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         TextView name;
         TextView initiative;
-        RelativeLayout container;
+        CardView container;
         public ViewHolder(View itemView) {
             super(itemView);
             name = (TextView)itemView.findViewById(R.id.character_name);
             initiative = (TextView)itemView.findViewById(R.id.character_initiative);
-            container = (RelativeLayout) itemView.findViewById(R.id.character_container);
+            container = (CardView) itemView.findViewById(R.id.character_container);
             container.setOnClickListener(this);
             container.setOnLongClickListener(this);
         }

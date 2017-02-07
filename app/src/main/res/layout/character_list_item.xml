@@ -1,32 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:id="@+id/character_container">
-    <TextView
-        android:id="@+id/character_name"
+    android:layout_height="60dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginBottom="5dp"
+    android:id="@+id/character_container"
+    android:background="@drawable/selector">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        style="@style/Character_item_text"
-        android:paddingLeft="20dp"
-        android:layout_toLeftOf="@+id/character_initiative"
-        android:text="name"/>
-    <TextView
-        android:id="@+id/character_initiative"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:layout_toLeftOf="@+id/edit"
-        android:layout_marginRight="20dp"
-        android:text="16" />
-    <ImageView
-        android:id="@+id/edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
-        android:layout_centerVertical="true"
-        android:src="@drawable/ic_action_edit"
-        android:layout_alignParentRight="true"
-        android:visibility="invisible"/>
-</RelativeLayout>
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/character_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            style="@style/Character_item_text"
+            android:paddingLeft="20dp"
+            android:layout_toLeftOf="@+id/character_initiative"
+            android:text="name"/>
+        <TextView
+            android:id="@+id/character_initiative"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_toLeftOf="@+id/edit"
+            android:layout_marginRight="20dp"
+            android:text="16" />
+        <ImageView
+            android:id="@+id/edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_action_edit"
+            android:layout_alignParentRight="true"
+            android:visibility="invisible"/>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

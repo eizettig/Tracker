@@ -20,8 +20,15 @@ public class Character extends Model{
     @Column(name = "turn")
     private boolean turn;
 
+    public static Character findById(long id){
+        return new Select().from(Character.class).where("id = ?",id).executeSingle();
+    }
     public static List<Character> getAll(){
         return new Select().from(Character.class).execute();
+    }
+
+    public static Character getTurn(){
+        return new Select().from(Character.class).where("turn = ?",true).executeSingle();
     }
 
     public String getName() {

@@ -1,5 +1,6 @@
 package com.zettig.tracker.Fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -21,6 +22,7 @@ import com.zettig.tracker.Adapter.AdapterTracker;
 import com.zettig.tracker.CallbackActivity;
 import com.zettig.tracker.Model.Character;
 import com.zettig.tracker.R;
+import com.zettig.tracker.Utils.ApplicationManager;
 import com.zettig.tracker.Utils.CharacterComporator;
 
 import java.util.ArrayList;
@@ -33,11 +35,14 @@ import java.util.List;
 
 public class FragmentCharacterList extends Fragment implements AdapterView.OnItemClickListener,AdapterView.OnItemLongClickListener {
 
+    private static final String TURN = "TURN";
     CallbackActivity callback;
     RecyclerView recyclerView;
     AdapterTracker adapter;
     FloatingActionButton fab;
     List<Character> list = new ArrayList<>();
+    private int round = 0;
+    private int turn = -1;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,6 +76,17 @@ public class FragmentCharacterList extends Fragment implements AdapterView.OnIte
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    //////////////////
+    //
+    // MENU
+    //
+    //////////////////
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.character_list_menu,menu);
@@ -78,11 +94,20 @@ public class FragmentCharacterList extends Fragment implements AdapterView.OnIte
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.add){
-            callback.replaceFragment(new FragmentCharacterEdit(),true);
+        switch (item.getItemId()){
+            case R.id.add:
+                callback.replaceFragment(new FragmentCharacterEdit(),true);
+                break;
+            case R.id.restart_game:
+                clearTurned();
+                turn = -1;
+                round = 0;
+                callback.setTitle("");
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     //////////////////
     //
@@ -93,18 +118,24 @@ public class FragmentCharacterList extends Fragment implements AdapterView.OnIte
     private View.OnClickListener onFabClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-        callback.replaceFragment(new FragmentCharacterEdit(),true);
+            if (list.size()<2){
+                ApplicationManager.getInstance().showToast(R.string.error_few_character);
+            } else {
+                if (turn == -1){
+                    turnFirst();
+                } else {
+                    turnNext(turn);
+                }
+            }
         }
     };
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        callback.replaceFragment(new FragmentCharacterEdit(),true);
+        Fragment fragment = new FragmentCharacterEdit();
+        Bundle bundle = new Bundle();
+        bundle.putLong("id",list.get(position).getId());
+        fragment.setArguments(bundle);
+        callback.replaceFragment(fragment,true);
     }
 
     @Override
@@ -112,4 +143,39 @@ public class FragmentCharacterList extends Fragment implements AdapterView.OnIte
         Log.d("TAG","long click to: " + position);
         return true;
     }
+
+    //////////////////
+    //
+    // TRACKER METHOD
+    //
+    //////////////////
+
+
+    private void turnFirst(){
+        round++;
+        callback.setTitle("Раунд: " + round);
+        turn = 1;
+        setTurned(turn);
+    }
+
+    private void turnNext(int current){
+        if (current != recyclerView.getChildCount()) {
+            turn++;
+            setTurned(current);
+        } else {
+            turnFirst();
+        }
+    }
+    private void setTurned(int position){
+        clearTurned();
+        recyclerView.getChildAt(position).setBackgroundColor(Color.RED);
+    }
+
+    private void clearTurned(){
+        for (int i=0;i<recyclerView.getChildCount();i++){
+            recyclerView.getChildAt(i).setBackgroundColor(Color.WHITE);
+        }
+    }
+
+
 }

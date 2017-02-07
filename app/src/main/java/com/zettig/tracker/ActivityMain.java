@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 
 import com.activeandroid.ActiveAndroid;
@@ -55,14 +56,18 @@ public class ActivityMain extends AppCompatActivity implements CallbackActivity{
     }
 
     @Override
-    public void onBackHomePressed() {
-        super.onBackPressed();
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     @Override
-    public boolean onSupportNavigateUp() {
-//        return super.onSupportNavigateUp();
-        onBackPressed();
-        return true;
+    public void setTitle(String title) {
+        if (!TextUtils.isEmpty(title)) {
+            getSupportActionBar().setDisplayShowTitleEnabled(true);
+            getSupportActionBar().setTitle(title);
+        } else {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
     }
 }
