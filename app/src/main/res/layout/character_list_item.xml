@@ -4,9 +4,9 @@
     android:layout_height="60dp"
     android:layout_marginRight="5dp"
     android:layout_marginLeft="5dp"
-    android:layout_marginBottom="5dp"
+    android:layout_marginBottom="3dp"
     android:id="@+id/character_container"
-    android:background="@drawable/selector">
+    android:background="@color/white">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -24,17 +24,16 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:layout_toLeftOf="@+id/edit"
-            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@+id/item_menu"
+            android:layout_marginRight="30dp"
             android:text="16" />
         <ImageView
-            android:id="@+id/edit"
+            android:id="@+id/item_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="10dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_action_edit"
-            android:layout_alignParentRight="true"
-            android:visibility="invisible"/>
+            android:src="@drawable/ic_action_item_menu"
+            android:layout_alignParentRight="true"/>
     </RelativeLayout>
 </android.support.v7.widget.CardView>

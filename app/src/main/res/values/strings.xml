@@ -13,4 +13,8 @@
     <string name="yes">Да</string>
     <string name="no">Нет</string>
     <string name="error_few_character">Слишком мало игроков</string>
+    <string name="menu_edit">Редактировать</string>
+    <string name="menu_delete">Удалить</string>
+    <string name="menu_skip">Пропускать</string>
+    <string name="error_delete">Нельзя удалить во время хода</string>
 </resources>

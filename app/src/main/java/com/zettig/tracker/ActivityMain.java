@@ -1,5 +1,6 @@
 package com.zettig.tracker;
 
+import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 
 import com.activeandroid.ActiveAndroid;
 import com.zettig.tracker.Fragments.FragmentCharacterList;
@@ -33,7 +35,7 @@ public class ActivityMain extends AppCompatActivity implements CallbackActivity{
     public void replaceFragment(Fragment fragment,boolean addToBackStack){
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 //         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        transaction.setCustomAnimations(android.R.anim.slide_out_right,android.R.anim.slide_in_left);
+//        transaction.setCustomAnimations(android.R.anim.slide_out_right,android.R.anim.slide_in_left);
         transaction.replace(R.id.container,fragment);
         if (addToBackStack) transaction.addToBackStack("backstack");
         transaction.commit();
@@ -69,5 +71,10 @@ public class ActivityMain extends AppCompatActivity implements CallbackActivity{
         } else {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
+    }
+
+    @Override
+    public void hideKeyboard() {
+
     }
 }
