@@ -221,9 +221,10 @@ public class FragmentCharacterList extends Fragment implements AdapterView.OnIte
             int next = current + 1;
             c.setTurn(false);
             c.save();
-            if (current != recyclerView.getChildCount() - 1) {
+            if (current != list.size() - 1) {
                 list.get(next).setTurn(true);
                 list.get(next).save();
+                recyclerView.smoothScrollToPosition(next);
             } else {
                 turnFirst();
             }
@@ -240,6 +241,7 @@ public class FragmentCharacterList extends Fragment implements AdapterView.OnIte
         Character c = list.get(0);
         c.setTurn(true);
         c.save();
+        recyclerView.smoothScrollToPosition(0);
         round++;
         callback.setTitle("Раунд " + round);
         adapter.updateList();
@@ -251,8 +253,5 @@ public class FragmentCharacterList extends Fragment implements AdapterView.OnIte
         round = 0;
         ApplicationManager.getInstance().getSharedManager().putKeyInteger(SharedKeys.ROUND,0);
         adapter.updateList();
-        for (int i=0;i<recyclerView.getChildCount();i++){
-            recyclerView.getChildAt(i).invalidate();
-        }
     }
 }
